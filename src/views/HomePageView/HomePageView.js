@@ -7,7 +7,7 @@ import * as moviesAPI from '../../utils/movies-api';
 
 const HomePageView = () => {
   // const match = useRouteMatch();
-  // const location = useLocation();
+  const location = useLocation();
   const imagesUrl = 'https://image.tmdb.org/t/p/w500';
 
   const [trendingMovies, setTrendingMovies] = useState([]);
@@ -27,7 +27,10 @@ const HomePageView = () => {
         trendingMovies.map(movie => (
           <li key={movie.id}>
             <Link
-              to={`/movies/${movie.id}`}
+              to={{
+                pathname: `/movies/${movie.id}`,
+                state: { prevUrl: location },
+              }}
               className={styles.HomePageView__Item}
             >
               {/* {movie.title} */}
@@ -41,7 +44,7 @@ const HomePageView = () => {
                 Rate: {movie.vote_average}
               </p>
               <p className={styles.HomePageView__MovieInfo}>
-                Views: {movie.popularity}
+                Views: {Math.round(movie.popularity)}
               </p>
             </Link>
           </li>

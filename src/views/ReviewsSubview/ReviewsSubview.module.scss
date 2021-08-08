@@ -1,8 +1,8 @@
-.MoviesPageView {
-  display: flex;
-  flex-wrap: wrap;
-  margin-top: -20px;
-  margin-left: -20px;
+.ReviewsSubview {
+  // display: flex;
+  // flex-wrap: wrap;
+  // margin-top: -20px;
+  // margin-left: -20px;
 
   &__Item {
     // flex-basis: calc(100% / 4 - 20px);
@@ -13,13 +13,14 @@
 
     &:hover {
       transform: scale(1.05);
+      cursor: zoom-in;
     }
   }
 
   &__Image {
     border-radius: 4px;
-    width: 150px;
-    height: 225px;
+    width: 300px;
+    height: 450px;
     box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.8);
     object-fit: cover;
   }
@@ -33,7 +34,16 @@
     color: white;
   }
 
-  &__MovieInfo {
+  &__Author {
+    // margin-bottom: 15px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: left;
+    color: black;
+  }
+
+  &__Content {
+    margin-bottom: 15px;
     font-size: 14px;
     font-weight: 400;
     text-align: left;
