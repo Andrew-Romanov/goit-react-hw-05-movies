@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import {
   NavLink,
   Switch,
@@ -8,11 +8,26 @@ import {
   useHistory,
   useLocation,
 } from 'react-router-dom';
-import ReviewsSubview from '../ReviewsSubview';
-import CastSubview from '../CastSubview';
+
+// import ReviewsSubview from '../ReviewsSubview';
+// import CastSubview from '../CastSubview';
+
 import noImage from '../../images/no-image.svg';
 import styles from './MovieDetailsPageView.module.scss';
 import * as moviesAPI from '../../utils/movies-api';
+
+const ReviewsSubview = lazy(() =>
+  import(
+    '../ReviewsSubview'
+    /* webpackChunkName: "ReviewsSubview" */
+  ),
+);
+const CastSubview = lazy(() =>
+  import(
+    '../CastSubview'
+    /* webpackChunkName: "CastSubview" */
+  ),
+);
 
 const MovieDetailsPageView = () => {
   const imagesUrl = 'https://image.tmdb.org/t/p/w500';
@@ -83,15 +98,17 @@ const MovieDetailsPageView = () => {
           Reviews
         </NavLink>
 
-        <Switch>
-          <Route path={`${path}/cast`}>
-            <CastSubview />
-          </Route>
+        <Suspense fallback={'Loading...'}>
+          <Switch>
+            <Route path={`${path}/cast`}>
+              <CastSubview />
+            </Route>
 
-          <Route path={`${path}/reviews`}>
-            <ReviewsSubview />
-          </Route>
-        </Switch>
+            <Route path={`${path}/reviews`}>
+              <ReviewsSubview />
+            </Route>
+          </Switch>
+        </Suspense>
       </div>
     )
   );

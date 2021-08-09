@@ -1,17 +1,19 @@
-import PropTypes from 'prop-types';
 import { useState, useEffect } from 'react';
-import { Link, useRouteMatch, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 import Searchbar from '../../components/Searchbar';
 import noImage from '../../images/no-image.svg';
 import styles from './MoviesPageView.module.scss';
 import * as moviesAPI from '../../utils/movies-api';
 
 const MoviesPageView = () => {
+  const history = useHistory();
   const location = useLocation();
   const imagesUrl = 'https://image.tmdb.org/t/p/w500';
-
-  const [query, setQuery] = useState('');
   const [findedMovies, setFindedMovies] = useState([]);
+  const [query, setQuery] = useState(
+    // Извлекаем запрос поиска из командной строки
+    new URLSearchParams(location.search).get('query') ?? '',
+  );
 
   const whenSubmit = searchQuery => {
     setQuery(searchQuery);
@@ -19,9 +21,14 @@ const MoviesPageView = () => {
 
   useEffect(() => {
     if (query === '') return;
+
+    // Запоминаем запрос поиска в командной строке
+    history.push({ ...location, search: `query=${query}` });
+
     moviesAPI.fetchSearchedMovies(query).then(data => {
       setFindedMovies(data.results);
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [query]);
 
   return (
@@ -62,16 +69,6 @@ const MoviesPageView = () => {
       </ul>
     </>
   );
-};
-
-MoviesPageView.propTypes = {
-  // title: PropTypes.string,
-  // children: PropTypes.node,
-};
-
-MoviesPageView.defaultProps = {
-  // title: 'Where is your title?',
-  // children: <></>,
 };
 
 export default MoviesPageView;

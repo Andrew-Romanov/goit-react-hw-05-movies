@@ -9,12 +9,15 @@
   // margin-bottom: 20px;
   // text-align: center;
   // box-shadow: 8px 8px 0px rgba(0, 0, 0, 0.8);
+  &__Logo {
+    width: 130px;
+    margin-right: 15px;
+  }
 
   &__Link {
     font-size: 21px;
     font-weight: 600;
     padding: 0px 15px;
-    // margin-bottom: 23px;
     color: black;
 
     &_Active {

@@ -14,7 +14,6 @@ const CastSubview = () => {
   useEffect(() => {
     moviesAPI.fetchCast(movieId).then(data => {
       setCast(data.cast);
-      console.log(data.cast);
     });
   }, [movieId]);
 

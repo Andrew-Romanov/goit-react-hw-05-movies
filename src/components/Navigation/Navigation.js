@@ -1,17 +1,13 @@
-import PropTypes from 'prop-types';
 import { NavLink } from 'react-router-dom';
 import styles from './Navigation.module.scss';
+import logo from '../../images/themoviedb-short-logo.svg';
 
 const Navigation = () => {
   return (
     <nav>
-      <NavLink
-        to="https://www.themoviedb.org/"
-        className={styles.Navigation__Link}
-        activeClassName={styles.Navigation__Link_Active}
-      >
-        TMDb
-      </NavLink>
+      <a href="https://www.themoviedb.org/" target="_blanc">
+        <img src={logo} alt="Logo" className={styles.Navigation__Logo} />
+      </a>
       <NavLink
         to="/"
         exact
@@ -30,16 +26,6 @@ const Navigation = () => {
       </NavLink>
     </nav>
   );
-};
-
-Navigation.propTypes = {
-  // title: PropTypes.string,
-  // children: PropTypes.node,
-};
-
-Navigation.defaultProps = {
-  // title: 'Where is your title?',
-  // children: <></>,
 };
 
 export default Navigation;

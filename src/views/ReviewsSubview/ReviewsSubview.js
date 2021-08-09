@@ -1,20 +1,16 @@
 import { useEffect, useState } from 'react';
-import { useParams, useRouteMatch } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 import styles from './ReviewsSubview.module.scss';
 import * as moviesAPI from '../../utils/movies-api';
 
 const ReviewsSubview = () => {
-  const imagesUrl = 'https://image.tmdb.org/t/p/w500';
-
-  const { url } = useRouteMatch();
   const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
     moviesAPI.fetchReviews(movieId).then(data => {
       setReviews(data.results);
-      console.log(data.results);
     });
   }, [movieId]);
 
