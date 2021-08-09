@@ -3,12 +3,12 @@ import { Link, useLocation, useHistory } from 'react-router-dom';
 import Searchbar from '../../components/Searchbar';
 import noImage from '../../images/no-image.svg';
 import styles from './MoviesPageView.module.scss';
-import * as moviesAPI from '../../utils/movies-api';
+import * as moviesAPI from '../../services/movies-api';
+import * as constants from '../../services/constants';
 
 const MoviesPageView = () => {
   const history = useHistory();
   const location = useLocation();
-  const imagesUrl = 'https://image.tmdb.org/t/p/w500';
   const [findedMovies, setFindedMovies] = useState([]);
   const [query, setQuery] = useState(
     // Извлекаем запрос поиска из командной строки
@@ -48,9 +48,11 @@ const MoviesPageView = () => {
               >
                 <img
                   src={
-                    movie.poster_path ? imagesUrl + movie.poster_path : noImage
+                    movie.poster_path
+                      ? constants.IMAGES_URL + movie.poster_path
+                      : noImage
                   }
-                  // src={imagesUrl + movie.poster_path}
+                  // src={constants.IMAGES_URL + movie.poster_path}
                   className={styles.MoviesPageView__Image}
                   alt={movie.title}
                 />

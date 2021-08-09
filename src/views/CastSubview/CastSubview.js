@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 import defaultActor from '../../images/default-actor.svg';
 
 import styles from './CastSubview.module.scss';
-import * as moviesAPI from '../../utils/movies-api';
+import * as moviesAPI from '../../services/movies-api';
+import * as constants from '../../services/constants';
 
 const CastSubview = () => {
-  const imagesUrl = 'https://image.tmdb.org/t/p/w500';
-
   const { movieId } = useParams();
   const [cast, setCast] = useState(null);
 
@@ -25,7 +24,7 @@ const CastSubview = () => {
             <img
               src={
                 actor.profile_path
-                  ? imagesUrl + actor.profile_path
+                  ? constants.IMAGES_URL + actor.profile_path
                   : defaultActor
               }
               className={styles.CastSubview__Image}

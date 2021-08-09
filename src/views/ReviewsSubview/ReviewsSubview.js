@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styles from './ReviewsSubview.module.scss';
-import * as moviesAPI from '../../utils/movies-api';
+import * as moviesAPI from '../../services/movies-api';
 
 const ReviewsSubview = () => {
   const { movieId } = useParams();

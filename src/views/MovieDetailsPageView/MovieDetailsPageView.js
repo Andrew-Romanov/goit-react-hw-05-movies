@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react';
 import {
   NavLink,
   Switch,
@@ -14,7 +14,8 @@ import {
 
 import noImage from '../../images/no-image.svg';
 import styles from './MovieDetailsPageView.module.scss';
-import * as moviesAPI from '../../utils/movies-api';
+import * as moviesAPI from '../../services/movies-api';
+import * as constants from '../../services/constants';
 
 const ReviewsSubview = lazy(() =>
   import(
@@ -30,9 +31,14 @@ const CastSubview = lazy(() =>
 );
 
 const MovieDetailsPageView = () => {
-  const imagesUrl = 'https://image.tmdb.org/t/p/w500';
-
   const location = useLocation();
+
+  const previousLocation = useMemo(
+    () => location?.state?.prevUrl ?? '/',
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [],
+  );
+
   const history = useHistory();
   const { url, path } = useRouteMatch();
   const { movieId } = useParams();
@@ -45,7 +51,7 @@ const MovieDetailsPageView = () => {
   }, [movieId]);
 
   const handleGoBack = () => {
-    history.push(location?.state?.prevUrl ?? '/');
+    history.push(previousLocation);
   };
 
   return (
@@ -55,7 +61,7 @@ const MovieDetailsPageView = () => {
         <img
           src={
             movieDetails.poster_path
-              ? imagesUrl + movieDetails.poster_path
+              ? constants.IMAGES_URL + movieDetails.poster_path
               : noImage
           }
           className={styles.MovieDetailsPageView__Image}

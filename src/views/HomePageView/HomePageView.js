@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './HomePageView.module.scss';
-import * as moviesAPI from '../../utils/movies-api';
+import * as moviesAPI from '../../services/movies-api';
+import * as constants from '../../services/constants';
 
 const HomePageView = () => {
   const location = useLocation();
-  const imagesUrl = 'https://image.tmdb.org/t/p/w500';
-
   const [trendingMovies, setTrendingMovies] = useState([]);
 
   useEffect(() => {
@@ -28,7 +27,7 @@ const HomePageView = () => {
               className={styles.HomePageView__Item}
             >
               <img
-                src={imagesUrl + movie.poster_path}
+                src={constants.IMAGES_URL + movie.poster_path}
                 className={styles.HomePageView__Image}
                 alt={movie.title}
               />
